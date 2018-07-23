@@ -116,7 +116,7 @@ public struct ImageMetadata {
     
     open var applyOverlay = false
     open var overlayInset: CGFloat = 10.0
-    open var overlayColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
+    open var overlayColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var menuView: UIView!
