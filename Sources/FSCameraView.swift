@@ -74,7 +74,7 @@ final class FSCameraView: UIView, UIGestureRecognizerDelegate {
         guard let session = session else { return }
         
         for device in AVCaptureDevice.devices() {
-            if device.position == .back {
+            if let device = device as? AVCaptureDevice, device.position == .back {
                 self.device = device
                 if !device.hasFlash {
                     flashButton.isHidden = true

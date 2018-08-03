@@ -126,6 +126,9 @@ public struct ImageMetadata {
     @IBOutlet weak var videoButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     
+    @IBOutlet weak var menuViewHeightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var bottomContainerHeightConstraint: NSLayoutConstraint?
+    
     lazy var albumView  = FSAlbumView.instance()
     lazy var cameraView = FSCameraView.instance()
     lazy var videoView  = FSVideoCameraView.instance()
@@ -150,6 +153,10 @@ public struct ImageMetadata {
     
         self.view.backgroundColor = fusumaBackgroundColor
         
+        let isIphoneX = UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436
+        menuViewHeightConstraint?.constant = isIphoneX ? 100 : 50
+        bottomContainerHeightConstraint?.constant = isIphoneX ? 84 : 50
+        
         cameraView.delegate = self
         albumView.delegate  = self
         videoView.delegate  = self
@@ -159,7 +166,6 @@ public struct ImageMetadata {
         videoButton.setTitle(fusumaVideoTitle, for: .normal)
 
         menuView.backgroundColor = fusumaBackgroundColor
-        menuView.addBottomBorder(UIColor.black, width: 1.0)
 
         albumView.allowMultipleSelection = allowMultipleSelection
         
@@ -297,7 +303,6 @@ public struct ImageMetadata {
             cameraView.fullAspectRatioConstraint.isActive     = true
             cameraView.croppedAspectRatioConstraint?.isActive = false
         }
-        
     }
     
     override open func viewWillAppear(_ animated: Bool) {

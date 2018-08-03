@@ -49,7 +49,7 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     
     fileprivate var dragDirection = Direction.up
 
-    private let imageCropViewOriginalConstraintTop: CGFloat = 50
+    private var imageCropViewOriginalConstraintTop: CGFloat = 50
     private let imageCropViewMinimalVisibleHeight: CGFloat  = 100
     private var imaginaryCollectionViewOffsetStartPosY: CGFloat = 0.0
     
@@ -85,9 +85,10 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         let panGesture      = UIPanGestureRecognizer(target: self, action: #selector(FSAlbumView.panned(_:)))
         panGesture.delegate = self
         self.addGestureRecognizer(panGesture)
-        
+        let isIphoneX = UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436
+        imageCropViewConstraintTop.constant = isIphoneX ? 88 : 50
+        imageCropViewOriginalConstraintTop = isIphoneX ? 88 : 50
         collectionViewConstraintHeight.constant = self.frame.height - imageCropViewContainer.frame.height - imageCropViewOriginalConstraintTop
-        imageCropViewConstraintTop.constant = 50
         dragDirection = Direction.up
         
         imageCropViewContainer.layer.shadowColor   = UIColor.black.cgColor
